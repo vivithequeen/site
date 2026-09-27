@@ -1,0 +1,190 @@
+---
+import { Font } from "astro:assets"; //AI CODE
+
+interface Props { //AI CODE
+    title?: string; //AI CODE
+    frontmatter?: { title?: string }; //AI CODE
+} //AI CODE
+
+const title = Astro.props.title ?? Astro.props.frontmatter?.title ?? ""; //AI CODE
+const path = Astro.url.pathname.replace(/\/$/, "") || "/"; //AI CODE
+const docTitle = path === "/" ? "violetquinn.dev" : `${title} | violetquinn.dev`; //AI CODE
+
+const pages = [ //AI CODE
+    { href: "/", label: "home" }, //AI CODE
+    { href: "/about", label: "about" }, //AI CODE
+    { href: "/projects", label: "projects" }, //AI CODE
+    { href: "/contact", label: "contact" }, //AI CODE
+]; //AI CODE
+
+const edge = ("#".repeat(100) + "\n").repeat(2).trimEnd(); //AI CODE
+// taller than any page will be; the wall is clipped to the content's height //AI CODE
+const wall = "#####\n".repeat(500); //AI CODE
+---
+
+<html lang="en"> <!--AI CODE-->
+    <head> <!--AI CODE-->
+        <meta charset="utf-8" /> <!--AI CODE-->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <!--AI CODE-->
+        <link rel="icon" href="/favicon.ico" /> <!--AI CODE-->
+        <meta name="viewport" content="width=device-width" /> <!--AI CODE-->
+        <meta name="generator" content={Astro.generator} /> <!--AI CODE-->
+        <Font cssVariable="--font-noto-sans-mono" preload /> <!--AI CODE-->
+        <title>{docTitle}</title> <!--AI CODE-->
+    </head> <!--AI CODE-->
+    <body> <!--AI CODE-->
+        <div class="frame"> <!--AI CODE-->
+            <div class="edge">{edge}</div> <!--AI CODE-->
+            <div class="middle"> <!--AI CODE-->
+                <div class="wall" aria-hidden="true"><span>{wall}</span></div> <!--AI CODE-->
+                <div class="inner"> <!--AI CODE-->
+                    <main> <!--AI CODE-->
+                        <div class="content"> <!--AI CODE-->
+                            <p>&gt;{title}</p> <!--AI CODE-->
+                            <slot /> <!--AI CODE-->
+                            <p>&gt;<span class="cursor"></span></p> <!--AI CODE-->
+                        </div> <!--AI CODE-->
+                        <div class="spacer"></div> <!--AI CODE-->
+                    </main> <!--AI CODE-->
+                    <nav> <!--AI CODE-->
+                        {pages.map((p) => ( //AI CODE
+                            <a href={p.href} aria-current={p.href === path ? "page" : undefined}>[ {p.label} ]</a> //AI CODE
+                        ))} {/* AI CODE */}
+                    </nav> <!--AI CODE-->
+                </div> <!--AI CODE-->
+                <div class="wall" aria-hidden="true"><span>{wall}</span></div> <!--AI CODE-->
+            </div> <!--AI CODE-->
+            <div class="edge">{edge}</div> <!--AI CODE-->
+        </div> <!--AI CODE-->
+
+        <script> //AI CODE
+            // images can be any height, which would leave the side walls cut off //AI CODE
+            // halfway through a row of #s. pad the content to a whole number of rows. //AI CODE
+            const content = document.querySelector<HTMLElement>(".content")!; //AI CODE
+            const spacer = document.querySelector<HTMLElement>(".spacer")!; //AI CODE
+            new ResizeObserver(() => { //AI CODE
+                const row = parseFloat(getComputedStyle(content).lineHeight); //AI CODE
+                const height = content.getBoundingClientRect().height; //AI CODE
+                spacer.style.height = `${Math.ceil(height / row - 0.01) * row - height}px`; //AI CODE
+            }).observe(content); //AI CODE
+        </script> <!--AI CODE-->
+    </body> <!--AI CODE-->
+</html> <!--AI CODE-->
+
+<style is:global>
+    body {
+        /* AI CODE */
+        margin: 0; /* AI CODE */
+        min-height: 100vh; /* AI CODE */
+        display: grid; /* AI CODE */
+        place-items: center; /* AI CODE */
+        font-family: var(--font-noto-sans-mono); /* AI CODE */
+        line-height: 1.4; /* AI CODE */
+    } /* AI CODE */
+
+    .frame {
+        /* AI CODE */
+        max-width: 100%; /* AI CODE */
+        overflow-x: auto; /* AI CODE */
+        padding: 1lh 0; /* AI CODE */
+    } /* AI CODE */
+
+    .edge,
+    .wall span {
+        /* AI CODE */
+        white-space: pre; /* AI CODE */
+    } /* AI CODE */
+
+    .middle {
+        /* AI CODE */
+        display: grid; /* AI CODE */
+        grid-template-columns: 5ch 90ch 5ch; /* AI CODE */
+    } /* AI CODE */
+
+    .wall {
+        /* AI CODE */
+        position: relative; /* AI CODE */
+        overflow: hidden; /* AI CODE */
+    } /* AI CODE */
+
+    .wall span {
+        /* AI CODE */
+        position: absolute; /* AI CODE */
+        inset: 0 auto auto 0; /* AI CODE */
+    } /* AI CODE */
+
+    .inner {
+        /* AI CODE */
+        display: flex; /* AI CODE */
+        flex-direction: column; /* AI CODE */
+        min-height: 14lh; /* AI CODE */
+        padding: 1lh 2ch; /* AI CODE */
+    } /* AI CODE */
+
+    main {
+        /* AI CODE */
+        flex: 1; /* AI CODE */
+    } /* AI CODE */
+
+    /* keep everything on the text grid: one blank row between blocks, */
+    /* and headings the same size as the text so rows stay even        */
+    .content > * {
+        /* AI CODE */
+        margin: 0 0 1lh; /* AI CODE */
+    } /* AI CODE */
+
+    .content > :last-child {
+        /* AI CODE */
+        margin-bottom: 0; /* AI CODE */
+    } /* AI CODE */
+
+    .content :is(h1, h2, h3, h4, h5, h6) {
+        /* AI CODE */
+        font-size: 1em; /* AI CODE */
+    } /* AI CODE */
+
+    .content :is(ul, ol) {
+        /* AI CODE */
+        padding-left: 2ch; /* AI CODE */
+    } /* AI CODE */
+
+    .content img {
+        /* AI CODE */
+        display: block; /* AI CODE */
+        max-width: 100%; /* AI CODE */
+        height: auto; /* AI CODE */
+    } /* AI CODE */
+
+    nav {
+        /* AI CODE */
+        display: flex; /* AI CODE */
+        gap: 2ch; /* AI CODE */
+        margin-top: 1lh; /* AI CODE */
+    } /* AI CODE */
+
+    .cursor {
+        /* AI CODE */
+        display: inline-block; /* AI CODE */
+        width: 1ch; /* AI CODE */
+        height: 1.1em; /* AI CODE */
+        vertical-align: text-bottom; /* AI CODE */
+        background: currentColor; /* AI CODE */
+        animation: blink 1s steps(1) infinite; /* AI CODE */
+    } /* AI CODE */
+
+    @keyframes blink {
+        /* AI CODE */
+        50% {
+            /* AI CODE */
+            opacity: 0; /* AI CODE */
+        } /* AI CODE */
+    } /* AI CODE */
+
+    @media (prefers-reduced-motion: reduce) {
+        /* AI CODE */
+        .cursor {
+            /* AI CODE */
+            animation: none; /* AI CODE */
+        } /* AI CODE */
+    } /* AI CODE */
+</style>

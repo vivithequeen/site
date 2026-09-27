@@ -1,0 +1,99 @@
+---
+interface Props {
+    //AI CODE
+    rows?: number; //AI CODE
+    label?: string; //AI CODE
+} //AI CODE
+
+const { rows = 16, label = "projects" } = Astro.props; //AI CODE
+---
+
+<section
+    class="project-list"
+    style={`height: ${rows}lh`}
+    tabindex="0"
+    aria-label={label}
+>
+    <!--AI CODE-->
+    <slot /> <!--AI CODE-->
+</section>
+<!--AI CODE-->
+
+<script> //AI CODE
+    // jump a whole row at a time with no smooth gliding, like a terminal //AI CODE
+    for (const list of document.querySelectorAll<HTMLElement>(".project-list")) { //AI CODE
+        const row = () => parseFloat(getComputedStyle(list).lineHeight); //AI CODE
+        let leftover = 0; //AI CODE
+
+        const moveRows = (rows: number) => { //AI CODE
+            const current = Math.round(list.scrollTop / row()); //AI CODE
+            list.scrollTo({ top: (current + rows) * row(), behavior: "instant" }); //AI CODE
+        }; //AI CODE
+
+        list.addEventListener( //AI CODE
+            "wheel", //AI CODE
+            (e) => { //AI CODE
+                const atTop = list.scrollTop <= 0; //AI CODE
+                const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 1; //AI CODE
+                // at either end, let the page scroll instead //AI CODE
+                if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) return; //AI CODE
+                e.preventDefault(); //AI CODE
+
+                const scale = [1, row(), list.clientHeight][e.deltaMode]; //AI CODE
+                leftover += e.deltaY * scale; //AI CODE
+                // trackpads send lots of tiny deltas; save them up until they add up to a row //AI CODE
+                const rows = Math.trunc(leftover / row()); //AI CODE
+                if (rows === 0) return; //AI CODE
+                leftover -= rows * row(); //AI CODE
+                moveRows(rows); //AI CODE
+            }, //AI CODE
+            { passive: false }, //AI CODE
+        ); //AI CODE
+
+        list.addEventListener("keydown", (e) => { //AI CODE
+            const page = Math.max(1, Math.floor(list.clientHeight / row()) - 1); //AI CODE
+            const keys: Record<string, number> = { //AI CODE
+                ArrowDown: 1, //AI CODE
+                ArrowUp: -1, //AI CODE
+                PageDown: page, //AI CODE
+                PageUp: -page, //AI CODE
+                " ": e.shiftKey ? -page : page, //AI CODE
+                End: Infinity, //AI CODE
+                Home: -Infinity, //AI CODE
+            }; //AI CODE
+            const rows = keys[e.key]; //AI CODE
+            if (rows === undefined) return; //AI CODE
+            e.preventDefault(); //AI CODE
+            if (Number.isFinite(rows)) moveRows(rows); //AI CODE
+            else list.scrollTo({ top: rows > 0 ? list.scrollHeight : 0, behavior: "instant" }); //AI CODE
+        }); //AI CODE
+
+        // dragging the scrollbar or swiping can stop anywhere, so round to the nearest row //AI CODE
+        list.addEventListener("scrollend", () => { //AI CODE
+            const off = list.scrollTop % row(); //AI CODE
+            const atBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 1; //AI CODE
+            if (off !== 0 && !atBottom) moveRows(0); //AI CODE
+        }); //AI CODE
+    } //AI CODE
+</script> <!--AI CODE-->
+
+<style>
+    .project-list {
+        /* AI CODE */
+        overflow-y: auto; /* AI CODE */
+        padding-right: 1ch; /* AI CODE */
+    } /* AI CODE */
+
+    /* section headings inside the list get three blank rows above */
+    /* to split the sections apart                                 */
+    .project-list :global(h2) {
+        /* AI CODE */
+        font-size: 1em; /* AI CODE */
+        margin: 3lh 0 1lh; /* AI CODE */
+    } /* AI CODE */
+
+    .project-list :global(h2:first-child) {
+        /* AI CODE */
+        margin-top: 0; /* AI CODE */
+    } /* AI CODE */
+</style>

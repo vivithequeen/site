@@ -1,0 +1,107 @@
+---
+import Frame from "../layouts/Frame.astro";
+import Project from "../components/Project.astro";
+import ProjectList from "../components/ProjectList.astro";
+import horizonsBanner from "../assets/images/horizons-banner.png";
+import flagshipBanner from "../assets/images/flagship-banner.png";
+import sunbeamBanner from "../assets/images/sunbeam-banner.png";
+---
+
+<Frame title="projects">
+    {" "}
+    <ProjectList label="projects and events">
+        {" "}
+        <h2>events</h2>
+        <Project
+            name="horizons"
+            href="https://horizons.hackclub.com"
+            year="2026"
+            image={horizonsBanner}
+            imageAlt="the horizons banner"
+        >
+            {" "}
+            meoew meow meow meowmeow meow emoew mewo emwoewemowe
+        </Project>{" "}
+        <Project
+            name="campfire flagship"
+            href="https://flagship.hackclub.com"
+            year="2025 – 2026"
+            image={flagshipBanner}
+        >
+            {" "}
+        </Project>{" "}
+        <Project
+            name="sunbeam boston"
+            href="https://sunbeam.hackclub.com"
+            year="2026"
+            image={sunbeamBanner}
+        >
+            {" "}
+            lead organizer. ran Boston's Sunbeam, a one-day social coding event
+            for girls ages 13–18, held alongside 20+ cities worldwide.
+        </Project>{" "}
+        <h2>projects</h2>
+        <Project
+            name="sarkeon"
+            href="https://github.com/vivithequeen/sarkeon-godot"
+            tech="C#, Godot"
+        >
+            {" "}
+        </Project>{" "}
+        <Project
+            name="infinity lost"
+            href="https://vivithequeen.itch.io/infinity-lost"
+            year="2025"
+            tech="Godot"
+        >
+            {" "}
+            a 3D FPS made in 4 days for GMTK Game Jam 2025, and submitted to
+            Hack Club's Jumpstart program.
+        </Project>{" "}
+        <Project
+            name="3d software renderers"
+            href="https://github.com/vivithequeen/v3DRenderer"
+            tech="C++, C, SDL3, SFML, ImGui"
+        >
+            {" "}
+            3D renderers built from scratch: an OBJ model renderer in C++, a
+            Doom-style renderer in C, and a raycaster.
+        </Project>{" "}
+        <Project
+            name="rfid scanner board"
+            year="2025 – 2026"
+            tech="ESP32-C3, KiCad, SPI"
+        >
+            {" "}
+            an attendance scanner system for my school, made with a class of 11
+            other students. i designed a custom ESP32-C3 PCB with an SPI RFID
+            reader, status LEDs and a transistor-driven buzzer.
+        </Project>{" "}
+        <Project
+            name="vengine"
+            href="https://github.com/vivithequeen/vEngine"
+            tech="C++, raylib, ImGui"
+        >
+            {" "}
+            a 3D game engine with a built-in editor, textured model loading, and
+            world saving and loading.
+        </Project>{" "}
+        <Project
+            name="portal puzzle game"
+            href="https://github.com/vivithequeen/non-euclidean"
+            tech="Godot, TrenchBroom"
+        >
+            {" "}
+            a non-Euclidean portal puzzle game. levels are built in TrenchBroom
+            and imported with func_godot.
+        </Project>{" "}
+        <Project
+            name="tui music player"
+            href="https://github.com/vivithequeen/tui-music-player"
+            tech="Go, Bubble Tea"
+        >
+            {" "}
+            a terminal music player for local music libraries.{" "}
+        </Project>{" "}
+    </ProjectList>{" "}
+</Frame>{" "}

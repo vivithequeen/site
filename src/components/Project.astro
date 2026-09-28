@@ -1,33 +1,47 @@
 ---
-import { Image } from "astro:assets"; //AI CODE
-import type { ImageMetadata } from "astro"; //AI CODE
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
-interface Props { //AI CODE
-    name: string; //AI CODE
-    href?: string; //AI CODE
-    year?: string | number; //AI CODE
-    tech?: string; //AI CODE
-    // a file imported from src/assets, or a web address / path in public/ as a string //AI CODE
-    image?: ImageMetadata | string; //AI CODE
-    imageAlt?: string; //AI CODE
-} //AI CODE
+interface Props {
+    name: string;
+    href?: string;
+    year?: string | number;
+    tech?: string;
+    // a file imported from src/assets, or a web address / path in public/ as a string
+    image?: ImageMetadata | string;
+    imageAlt?: string;
+}
 
-const { name, href, year, tech, image, imageAlt = "" } = Astro.props; //AI CODE
-// the frame is about 860px wide; twice that stays sharp on high-res screens //AI CODE
-const MAX_WIDTH = 1720; //AI CODE
+const { name, href, year, tech, image, imageAlt = "" } = Astro.props;
+// the frame is about 860px wide; twice that stays sharp on high-res screens
+const MAX_WIDTH = 1720;
 ---
 
-<article class="project"> <!--AI CODE-->
-    <p> <!--AI CODE-->
-        <strong>{href ? <a href={href}>{name}</a> : name}</strong>{year && <span> ({year})</span>}{tech && <span> | {tech}</span>} <!--AI CODE-->
-    </p> <!--AI CODE-->
-    <div class="description"><slot /></div> <!--AI CODE-->
-    {image && ( //AI CODE
-        <div class="picture" data-rows> <!--AI CODE-->
-            {typeof image === "string" ? <img src={image} alt={imageAlt} /> : <Image src={image} alt={imageAlt} width={Math.min(image.width, MAX_WIDTH)} />} {/* AI CODE */}
-        </div> //AI CODE
-    )} {/* AI CODE */}
-</article> <!--AI CODE-->
+<article class="project">
+    <p>
+        <strong>{href ? <a href={href}>{name}</a> : name}</strong>
+        {year && <span> ({year})</span>}
+        {tech && <span> | {tech}</span>}
+    </p>
+    <div class="description">
+        <slot />
+    </div>
+    {image && (
+        <div class="picture" data-rows>
+            {typeof image === "string" ? (
+                <img src={image} alt={imageAlt} />
+            ) : (
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    width={Math.min(image.width, MAX_WIDTH)}
+                />
+            )}{" "}
+            {/* AI CODE */}
+        </div>
+    )}{" "}
+    {/* AI CODE */}
+</article>
 
 <style>
     .project > * {

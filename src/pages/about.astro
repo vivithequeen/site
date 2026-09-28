@@ -1,0 +1,45 @@
+---
+import Frame from "../layouts/Frame.astro";
+import ProjectList from "../components/ProjectList.astro";
+---
+
+<Frame title="about">
+    {" "}
+    <!-- the same 16-row scroll box as the projects page, so both pages are the same height -->{" "}
+    <ProjectList label="about me">
+        {" "}
+        <h2>skills!!</h2>
+        <ul>
+            <li>
+                <strong>languages:</strong> C#, C++, C, Python, Go, GDScript,
+                JavaScript, HTML/CSS, GameMaker Language
+            </li>
+
+            <li>
+                <strong>frameworks &amp; libraries:</strong> SDL3, SFML, raylib,
+                ImGui, three.js, Astro, Bubble Tea, tModLoader
+            </li>
+
+            <li>
+                <strong>tools:</strong> Godot, GameMaker, Ren’Py, Blender,
+                TrenchBroom, KiCad, Photoshop, Krita, Aseprite, Arduino
+            </li>
+        </ul>
+        <h2>hackathons i’ve been to</h2>
+        <ul>
+            <li>Sleepover (Chicago, 2026)</li>
+
+            <li>MIT Blueprint (2026)</li>
+
+            <li>Parthenon (NYC, 2025)</li>
+
+            <li>Daydream Boston (2025)</li>
+
+            <li>Scrapyard Boston (2025)</li>
+
+            <li>Counterspell Boston (2024)</li>
+
+            <li>AMSA Code Bash (2024)</li>
+        </ul>
+    </ProjectList>{" "}
+</Frame>{" "}

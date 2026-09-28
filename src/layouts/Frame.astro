@@ -1,113 +1,140 @@
 ---
-import { Font } from "astro:assets"; //AI CODE
+import { Font } from "astro:assets";
 
-interface Props { //AI CODE
-    title?: string; //AI CODE
-    frontmatter?: { title?: string }; //AI CODE
-} //AI CODE
+interface Props {
+    title?: string;
+    frontmatter?: { title?: string };
+}
 
-const title = Astro.props.title ?? Astro.props.frontmatter?.title ?? ""; //AI CODE
-const path = Astro.url.pathname.replace(/\/$/, "") || "/"; //AI CODE
-const docTitle = path === "/" ? "violetquinn.dev" : `${title} | violetquinn.dev`; //AI CODE
+const title = Astro.props.title ?? Astro.props.frontmatter?.title ?? "";
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const docTitle =
+    path === "/" ? "violetquinn.dev" : `${title} | violetquinn.dev`;
 
-const pages = [ //AI CODE
-    { href: "/", label: "home" }, //AI CODE
-    { href: "/about", label: "about" }, //AI CODE
-    { href: "/projects", label: "projects" }, //AI CODE
-    { href: "/contact", label: "contact" }, //AI CODE
-]; //AI CODE
+const pages = [
+    { href: "/", label: "home" },
+    { href: "/about", label: "about" },
+    { href: "/projects", label: "projects" },
+    { href: "/contact", label: "contact and friends" },
+];
 
-const edge = ("#".repeat(100) + "\n").repeat(2).trimEnd(); //AI CODE
-// taller than any page will be; the wall is clipped to the content's height //AI CODE
-const wall = "#####\n".repeat(500); //AI CODE
+const edge = ("#".repeat(100) + "\n").repeat(2).trimEnd();
+// taller than any page will be; the wall is clipped to the content's height
+const wall = "#####\n".repeat(500);
 ---
 
-<html lang="en"> <!--AI CODE-->
-    <head> <!--AI CODE-->
-        <meta charset="utf-8" /> <!--AI CODE-->
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> <!--AI CODE-->
-        <link rel="icon" href="/favicon.ico" /> <!--AI CODE-->
-        <meta name="viewport" content="width=device-width" /> <!--AI CODE-->
-        <meta name="generator" content={Astro.generator} /> <!--AI CODE-->
-        <Font cssVariable="--font-noto-sans-mono" preload /> <!--AI CODE-->
-        <title>{docTitle}</title> <!--AI CODE-->
-        <script is:inline> //AI CODE
-            // set before first paint so dark mode doesn't flash white on load //AI CODE
-            try { //AI CODE
-                if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark"); //AI CODE
-            } catch {} //AI CODE
-        </script> <!--AI CODE-->
-    </head> <!--AI CODE-->
-    <body> <!--AI CODE-->
-        <div class="frame"> <!--AI CODE-->
-            <div class="edge">{edge}</div> <!--AI CODE-->
-            <div class="middle"> <!--AI CODE-->
-                <div class="wall" aria-hidden="true"><span>{wall}</span></div> <!--AI CODE-->
-                <div class="inner"> <!--AI CODE-->
-                    <main> <!--AI CODE-->
-                        <div class="content"> <!--AI CODE-->
-                            <p>&gt;{title}</p> <!--AI CODE-->
-                            <slot /> <!--AI CODE-->
-                            <p>&gt;<span class="cursor"></span></p> <!--AI CODE-->
-                        </div> <!--AI CODE-->
-                        <div class="spacer"></div> <!--AI CODE-->
-                    </main> <!--AI CODE-->
-                    <nav> <!--AI CODE-->
-                        {pages.map((p) => ( //AI CODE
-                            <a href={p.href} aria-current={p.href === path ? "page" : undefined}>[ {p.label} ]</a> //AI CODE
-                        ))} {/* AI CODE */}
-                        <button class="theme" type="button">[ dark ]</button> <!--AI CODE-->
-                    </nav> <!--AI CODE-->
-                </div> <!--AI CODE-->
-                <div class="wall" aria-hidden="true"><span>{wall}</span></div> <!--AI CODE-->
-            </div> <!--AI CODE-->
-            <div class="edge">{edge}</div> <!--AI CODE-->
-        </div> <!--AI CODE-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <Font cssVariable="--font-noto-sans-mono" preload />
+        <title>{docTitle}</title>
+        <script is:inline>
+            // set before first paint so dark mode doesn't flash white on load
+            try {
+                if (localStorage.getItem("theme") === "dark")
+                    document.documentElement.classList.add("dark");
+            } catch {}
+        </script>
+    </head>
+    <body>
+        <div class="frame">
+            <div class="edge">{edge}</div>
+            <div class="middle">
+                <div class="wall" aria-hidden="true">
+                    <span>{wall}</span>
+                </div>
+                <div class="inner">
+                    <main>
+                        <div class="content">
+                            <p>&gt;{title}</p>
+                            <slot />
+                            <p>
+                                &gt;<span class="cursor"></span>
+                            </p>
+                        </div>
+                        <div class="spacer"></div>
+                    </main>
+                    <nav>
+                        {pages.map((p) => (
+                            <a
+                                href={p.href}
+                                aria-current={
+                                    p.href === path ? "page" : undefined
+                                }
+                            >
+                                [ {p.label} ]
+                            </a>
+                        ))}{" "}
+                        {/* AI CODE */}
+                        <button class="theme" type="button">
+                            [ dark ]
+                        </button>
+                    </nav>
+                </div>
+                <div class="wall" aria-hidden="true">
+                    <span>{wall}</span>
+                </div>
+            </div>
+            <div class="edge">{edge}</div>
+        </div>
 
-        <script> //AI CODE
-            // images can be any height, which would knock the text below them off //AI CODE
-            // the rows of #s. pad them (and the whole page) to a whole number of rows. //AI CODE
-            const content = document.querySelector<HTMLElement>(".content")!; //AI CODE
-            const spacer = document.querySelector<HTMLElement>(".spacer")!; //AI CODE
-            const row = () => parseFloat(getComputedStyle(content).lineHeight); //AI CODE
-            const extra = (height: number) => Math.ceil(height / row() - 0.01) * row() - height; //AI CODE
+        <script>
+            // images can be any height, which would knock the text below them off
+            // the rows of #s. pad them (and the whole page) to a whole number of rows.
+            const content = document.querySelector<HTMLElement>(".content")!;
+            const spacer = document.querySelector<HTMLElement>(".spacer")!;
+            const row = () => parseFloat(getComputedStyle(content).lineHeight);
+            const extra = (height: number) =>
+                Math.ceil(height / row() - 0.01) * row() - height;
 
-            // [data-rows] wraps one element, like an image //AI CODE
-            const boxes = new ResizeObserver((entries) => { //AI CODE
-                for (const { target } of entries) { //AI CODE
-                    const box = target.parentElement!; //AI CODE
-                    box.style.paddingBottom = `${extra(target.getBoundingClientRect().height)}px`; //AI CODE
-                } //AI CODE
-            }); //AI CODE
-            document.querySelectorAll("[data-rows] > *").forEach((el) => boxes.observe(el)); //AI CODE
+            // [data-rows] wraps one element, like an image
+            const boxes = new ResizeObserver((entries) => {
+                for (const { target } of entries) {
+                    const box = target.parentElement!;
+                    box.style.paddingBottom = `${extra(target.getBoundingClientRect().height)}px`;
+                }
+            });
+            document
+                .querySelectorAll("[data-rows] > *")
+                .forEach((el) => boxes.observe(el));
 
-            const theme = document.querySelector<HTMLButtonElement>(".theme")!; //AI CODE
-            const label = () => { //AI CODE
-                theme.textContent = document.documentElement.classList.contains("dark") ? "[ light ]" : "[ dark ]"; //AI CODE
-            }; //AI CODE
-            label(); //AI CODE
-            theme.addEventListener("click", () => { //AI CODE
-                const dark = document.documentElement.classList.toggle("dark"); //AI CODE
-                try { //AI CODE
-                    localStorage.setItem("theme", dark ? "dark" : "light"); //AI CODE
-                } catch {} //AI CODE
-                label(); //AI CODE
-            }); //AI CODE
+            const theme = document.querySelector<HTMLButtonElement>(".theme")!;
+            const label = () => {
+                theme.textContent = document.documentElement.classList.contains(
+                    "dark",
+                )
+                    ? "[ light ]"
+                    : "[ dark ]";
+            };
+            label();
+            theme.addEventListener("click", () => {
+                const dark = document.documentElement.classList.toggle("dark");
+                try {
+                    localStorage.setItem("theme", dark ? "dark" : "light");
+                } catch {}
+                label();
+            });
 
-            // emails are stored base64 encoded in data-email so scrapers reading the //AI CODE
-            // html don't see an address. decode them into real links once js runs //AI CODE
-            document.querySelectorAll<HTMLAnchorElement>("a[data-email]").forEach((a) => { //AI CODE
-                const email = atob(a.dataset.email!); //AI CODE
-                a.href = `mailto:${email}`; //AI CODE
-                a.textContent = email; //AI CODE
-            }); //AI CODE
+            // emails are stored base64 encoded in data-email so scrapers reading the
+            // html don't see an address. decode them into real links once js runs
+            document
+                .querySelectorAll<HTMLAnchorElement>("a[data-email]")
+                .forEach((a) => {
+                    const email = atob(a.dataset.email!);
+                    a.href = `mailto:${email}`;
+                    a.textContent = email;
+                });
 
-            new ResizeObserver(() => { //AI CODE
-                spacer.style.height = `${extra(content.getBoundingClientRect().height)}px`; //AI CODE
-            }).observe(content); //AI CODE
-        </script> <!--AI CODE-->
-    </body> <!--AI CODE-->
-</html> <!--AI CODE-->
+            new ResizeObserver(() => {
+                spacer.style.height = `${extra(content.getBoundingClientRect().height)}px`;
+            }).observe(content);
+        </script>
+    </body>
+</html>
 
 <style is:global>
     /* dark mode just inverts everything. the backgrounds are set explicitly */
@@ -223,6 +250,23 @@ const wall = "#####\n".repeat(500); //AI CODE
         display: block; /* AI CODE */
         max-width: 100%; /* AI CODE */
         height: auto; /* AI CODE */
+    } /* AI CODE */
+
+    /* a row of 88x31 buttons. it sits in a [data-rows] box so the rows */
+    /* below it stay lined up with the #s however many lines it wraps to */
+    .content .buttons {
+        /* AI CODE */
+        display: flex; /* AI CODE */
+        flex-wrap: wrap; /* AI CODE */
+        gap: 8px 1ch; /* AI CODE */
+    } /* AI CODE */
+
+    .content .buttons img {
+        /* AI CODE */
+        width: auto; /* AI CODE */
+        height: 31px; /* AI CODE */
+        /* keep the pixel art crisp instead of blurry */
+        image-rendering: pixelated; /* AI CODE */
     } /* AI CODE */
 
     nav {

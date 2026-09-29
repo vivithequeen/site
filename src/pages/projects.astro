@@ -5,103 +5,223 @@ import ProjectList from "../components/ProjectList.astro";
 import horizonsBanner from "../assets/images/horizons-banner.png";
 import flagshipBanner from "../assets/images/flagship-banner.png";
 import sunbeamBanner from "../assets/images/sunbeam-banner.png";
+import infinityLostImage from "../assets/images/infinity_lost.png"; // AI CODE
 ---
 
 <Frame title="projects">
     {" "}
-    <ProjectList label="projects and events">
-        {" "}
-        <h2>events</h2>
-        <Project
-            name="horizons"
-            href="https://horizons.hackclub.com"
-            year="2026"
-            image={horizonsBanner}
-            imageAlt="the horizons banner"
+    <div class="tabs" role="tablist" aria-label="projects or events">
+        {}
+        <button
+            type="button"
+            role="tab"
+            id="tab-projects"
+            aria-controls="panel-projects"
+            aria-selected="true"
         >
-            {" "}
-            meoew meow meow meowmeow meow emoew mewo emwoewemowe
-        </Project>{" "}
-        <Project
-            name="campfire flagship"
-            href="https://flagship.hackclub.com"
-            year="2025 – 2026"
-            image={flagshipBanner}
+            [ projects ]
+        </button>
+        {}
+        <button
+            type="button"
+            role="tab"
+            id="tab-events"
+            aria-controls="panel-events"
+            aria-selected="false"
         >
+            [ events ]
+        </button>
+        {}
+    </div>
+    {}
+    <div
+        class="split"
+        role="tabpanel"
+        id="panel-projects"
+        aria-labelledby="tab-projects"
+    >
+        {}
+        <ProjectList label="projects">
             {" "}
-        </Project>{" "}
-        <Project
-            name="sunbeam boston"
-            href="https://sunbeam.hackclub.com"
-            year="2026"
-            image={sunbeamBanner}
-        >
+            <Project
+                name="sarkeon"
+                href="https://github.com/vivithequeen/sarkeon-godot"
+                tech="C#, Godot"
+            >
+                {" "}
+            </Project>{" "}
+            <Project
+                name="infinity lost"
+                href="https://vivithequeen.itch.io/infinity-lost"
+                year="2025"
+                tech="Godot"
+                image={infinityLostImage}
+                imageAlt="a screenshot of infinity lost"
+            >
+                {} a 3D FPS made in 4 days for GMTK Game Jam 2025, and submitted
+                to Hack Club's Jumpstart program.
+            </Project>{" "}
+            <Project
+                name="3d software renderers"
+                href="https://github.com/vivithequeen/v3DRenderer"
+                tech="C++, C, SDL3, SFML, ImGui"
+            >
+                {" "}
+                3D renderers built from scratch: an OBJ model renderer in C++, a
+                Doom-style renderer in C, and a raycaster.
+            </Project>{" "}
+            <Project
+                name="rfid scanner board"
+                year="2025 – 2026"
+                tech="ESP32-C3, KiCad, SPI"
+            >
+                {" "}
+                an attendance scanner system for my school, made with a class of
+                11 other students. i designed a custom ESP32-C3 PCB with an SPI
+                RFID reader, status LEDs and a transistor-driven buzzer.
+            </Project>{" "}
+            <Project
+                name="vengine"
+                href="https://github.com/vivithequeen/vEngine"
+                tech="C++, raylib, ImGui"
+            >
+                {" "}
+                a 3D game engine with a built-in editor, textured model loading,
+                and world saving and loading.
+            </Project>{" "}
+            <Project
+                name="portal puzzle game"
+                href="https://github.com/vivithequeen/non-euclidean"
+                tech="Godot, TrenchBroom"
+            >
+                {" "}
+                a non-Euclidean portal puzzle game. levels are built in
+                TrenchBroom and imported with func_godot.
+            </Project>{" "}
+            <Project
+                name="tui music player"
+                href="https://github.com/vivithequeen/tui-music-player"
+                tech="Go, Bubble Tea"
+            >
+                {" "}
+                a terminal music player for local music libraries.{" "}
+            </Project>{" "}
+        </ProjectList>{" "}
+    </div>
+    {}
+    <div role="tabpanel" id="panel-events" aria-labelledby="tab-events" hidden>
+        {}
+        <ProjectList label="events">
             {" "}
-            lead organizer. ran Boston's Sunbeam, a one-day social coding event
-            for girls ages 13–18, held alongside 20+ cities worldwide.
-        </Project>{" "}
-        <h2>projects</h2>
-        <Project
-            name="sarkeon"
-            href="https://github.com/vivithequeen/sarkeon-godot"
-            tech="C#, Godot"
-        >
-            {" "}
-        </Project>{" "}
-        <Project
-            name="infinity lost"
-            href="https://vivithequeen.itch.io/infinity-lost"
-            year="2025"
-            tech="Godot"
-        >
-            {" "}
-            a 3D FPS made in 4 days for GMTK Game Jam 2025, and submitted to
-            Hack Club's Jumpstart program.
-        </Project>{" "}
-        <Project
-            name="3d software renderers"
-            href="https://github.com/vivithequeen/v3DRenderer"
-            tech="C++, C, SDL3, SFML, ImGui"
-        >
-            {" "}
-            3D renderers built from scratch: an OBJ model renderer in C++, a
-            Doom-style renderer in C, and a raycaster.
-        </Project>{" "}
-        <Project
-            name="rfid scanner board"
-            year="2025 – 2026"
-            tech="ESP32-C3, KiCad, SPI"
-        >
-            {" "}
-            an attendance scanner system for my school, made with a class of 11
-            other students. i designed a custom ESP32-C3 PCB with an SPI RFID
-            reader, status LEDs and a transistor-driven buzzer.
-        </Project>{" "}
-        <Project
-            name="vengine"
-            href="https://github.com/vivithequeen/vEngine"
-            tech="C++, raylib, ImGui"
-        >
-            {" "}
-            a 3D game engine with a built-in editor, textured model loading, and
-            world saving and loading.
-        </Project>{" "}
-        <Project
-            name="portal puzzle game"
-            href="https://github.com/vivithequeen/non-euclidean"
-            tech="Godot, TrenchBroom"
-        >
-            {" "}
-            a non-Euclidean portal puzzle game. levels are built in TrenchBroom
-            and imported with func_godot.
-        </Project>{" "}
-        <Project
-            name="tui music player"
-            href="https://github.com/vivithequeen/tui-music-player"
-            tech="Go, Bubble Tea"
-        >
-            {" "}
-            a terminal music player for local music libraries.{" "}
-        </Project>{" "}
-    </ProjectList>{" "}
+            <Project
+                name="horizons"
+                href="https://horizons.hackclub.com"
+                year="2026"
+                image={horizonsBanner}
+                imageAlt="the horizons banner"
+            >
+                {" "}
+                meoew meow meow meowmeow meow emoew mewo emwoewemowe
+            </Project>{" "}
+            <Project
+                name="campfire flagship"
+                href="https://flagship.hackclub.com"
+                year="2025 – 2026"
+                image={flagshipBanner}
+            >
+                {" "}
+            </Project>{" "}
+            <Project
+                name="sunbeam boston"
+                href="https://sunbeam.hackclub.com"
+                year="2026"
+                image={sunbeamBanner}
+            >
+                {" "}
+                lead organizer. ran Boston's Sunbeam, a one-day social coding
+                event for girls ages 13–18, held alongside 20+ cities worldwide.
+            </Project>{" "}
+        </ProjectList>{" "}
+    </div>
+    {}
 </Frame>{" "}
+<script>
+    // switch between the projects and events lists. the tab is kept in the url // AI CODE
+    // hash so /projects#events links straight to the events tab // AI CODE
+    const tabs = [
+        ...document.querySelectorAll<HTMLButtonElement>(".tabs [role=tab]"),
+    ]; // AI CODE
+
+    const show = (tab: HTMLButtonElement) => {
+        // AI CODE
+        for (const t of tabs) {
+            // AI CODE
+            const on = t === tab; // AI CODE
+            t.setAttribute("aria-selected", String(on)); // AI CODE
+            document.getElementById(t.getAttribute("aria-controls")!)!.hidden =
+                !on; // AI CODE
+        } // AI CODE
+    }; // AI CODE
+
+    for (const tab of tabs) {
+        // AI CODE
+        tab.addEventListener("click", () => {
+            // AI CODE
+            show(tab); // AI CODE
+            history.replaceState(null, "", `#${tab.id.replace("tab-", "")}`); // AI CODE
+        }); // AI CODE
+    } // AI CODE
+
+    const fromHash = tabs.find((t) => t.id === `tab-${location.hash.slice(1)}`); // AI CODE
+    if (fromHash) show(fromHash); // AI CODE
+</script>
+<style>
+    /* the tabs look like the nav links: plain bracketed text */
+    .tabs {
+        display: flex;
+        gap: 2ch;
+    }
+
+    .tabs button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .tabs [aria-selected="true"] {
+        font-weight: bold;
+    }
+
+    /* projects with a picture are split in two, and the picture swaps sides */
+    /* every other project:  image | text,  then  text | image               */
+    .split :global(.project:has(.picture)) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 2ch;
+        align-items: start;
+    }
+
+    .split :global(.project:has(.picture):nth-of-type(odd) .picture) {
+        order: -1;
+    }
+
+    /* the row of dashes between projects stays above both halves */
+    .split :global(.project:has(.picture)::before) {
+        grid-column: 1 / -1;
+        order: -2;
+    }
+
+    /* phones are too narrow for two halves: the picture goes on top, then the text */
+    @media (max-width: 640px) {
+        .split :global(.project:has(.picture)) {
+            grid-template-columns: 1fr;
+        }
+
+        .split :global(.project:has(.picture) .picture) {
+            order: -1;
+        }
+    }
+</style>

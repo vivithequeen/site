@@ -1,0 +1,90 @@
+---
+import { Image, getImage } from "astro:assets"; // AI CODE
+import type { ImageMetadata } from "astro"; // AI CODE
+import Frame from "../layouts/Frame.astro"; // AI CODE
+import ProjectList from "../components/ProjectList.astro"; // AI CODE
+
+// every photo dropped into src/assets/images/photos shows up here, newest name first // AI CODE
+const files = import.meta.glob<{ default: ImageMetadata }>( // AI CODE
+    "../assets/images/photos/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}", // AI CODE
+    { eager: true }, // AI CODE
+); // AI CODE
+
+// the originals are huge camera files, so the page only ever gets shrunk copies: // AI CODE
+// a small one for the grid, and a bigger (still not full size) one when clicked // AI CODE
+const THUMB_WIDTH = 840; // AI CODE
+const LARGE_WIDTH = 2400; // AI CODE
+
+const photos = await Promise.all(
+    // AI CODE
+    Object.entries(files) // AI CODE
+        .sort(([a], [b]) => b.localeCompare(a)) // AI CODE
+        .map(async ([, mod]) => {
+            // AI CODE
+            const src = mod.default; // AI CODE
+            const large = await getImage({
+                // AI CODE
+                src, // AI CODE
+                width: Math.min(src.width, LARGE_WIDTH), // AI CODE
+                format: "webp", // AI CODE
+                quality: 80, // AI CODE
+            }); // AI CODE
+            return { src, large: large.src }; // AI CODE
+        }), // AI CODE
+); // AI CODE
+---
+
+<Frame title="photos">
+    {" "}
+    {}hey! i do a lot of photography while traveling, here are a few of my
+    favorite pictures ive taken over the last year :)
+    <ProjectList label="photos">
+        {" "}
+        {}
+        <div class="photos">
+            {photos.map(({ src, large }) => (
+                <a href={large} target="_blank">
+                    <Image
+                        src={src}
+                        alt=""
+                        width={Math.min(src.width, THUMB_WIDTH)}
+                        format="webp"
+                        quality={70}
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </a>
+            ))}{" "}
+            {}
+        </div>
+    </ProjectList>{" "}
+    {}
+</Frame>{" "}
+{}
+<style>
+    /* two photos per row. each one is cropped to a whole number of rows tall */
+    /* so the grid lines up with the #s beside it                             */
+    .photos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1lh 2ch;
+    }
+
+    .photos a {
+        display: block;
+    }
+
+    .photos :global(img) {
+        display: block;
+        width: 100%;
+        height: 12lh;
+        object-fit: cover;
+    }
+
+    /* one photo per row on phones so they aren't tiny slivers */
+    @media (max-width: 640px) {
+        .photos {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

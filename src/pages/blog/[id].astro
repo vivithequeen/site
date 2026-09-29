@@ -1,0 +1,85 @@
+---
+import { render } from "astro:content"; // AI CODE
+import Frame from "../../layouts/Frame.astro"; // AI CODE
+import { getPosts, formatDate } from "../../lib/posts"; // AI CODE
+
+export async function getStaticPaths() {
+    // AI CODE
+    const posts = await getPosts(); // AI CODE
+    return posts.map((post) => ({ params: { id: post.id }, props: { post } })); // AI CODE
+} // AI CODE
+
+const { post } = Astro.props; // AI CODE
+const { Content } = await render(post); // AI CODE
+---
+
+<Frame title={post.data.title}>
+    {}
+    <p>
+        <a href="/blog">&lt; back to blog</a> |{" "}
+        <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+        </time>
+        {}
+    </p>
+    {}
+    <Content />
+    {}
+</Frame>
+{}
+
+<style is:global>
+    /* the post's markdown lands straight in .content, so it already gets the */
+    /* one-blank-row spacing. these keep code, quotes and lines on the rows too */
+
+    /* code blocks are just indented, like in a plain text file */
+    .content pre {
+        padding-left: 2ch;
+        overflow-x: auto;
+        white-space: pre;
+        overflow-wrap: normal;
+    }
+
+    .content :is(pre, code) {
+        font: inherit;
+    }
+
+    /* everything is already monospace, so inline code gets backticks around it instead */
+    .content :not(pre) > code::before,
+    .content :not(pre) > code::after {
+        content: "`";
+    }
+
+    /* a quote is indented with a > down its left side, like an email reply */
+    .content blockquote {
+        position: relative;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 2ch;
+        overflow: hidden;
+    }
+
+    .content blockquote::before {
+        content: ">\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>";
+        white-space: pre;
+        position: absolute;
+        inset: 0 auto auto 0;
+    }
+
+    .content blockquote > * {
+        margin: 0;
+    }
+
+    /* --- in markdown becomes the same row of dashes used between projects */
+    .content hr {
+        border: 0;
+        height: 1lh;
+        overflow: hidden;
+    }
+
+    .content hr::before {
+        content: "--------------------------------------------------------------------------------";
+        display: block;
+        white-space: nowrap;
+    }
+</style>

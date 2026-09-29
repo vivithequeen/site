@@ -1,0 +1,61 @@
+---
+import Frame from "../../layouts/Frame.astro"; // AI CODE
+import ProjectList from "../../components/ProjectList.astro"; // AI CODE
+import { getPosts, formatDate } from "../../lib/posts"; // AI CODE
+
+const posts = await getPosts(); // AI CODE
+---
+
+<Frame title="blog">
+    {}
+    {posts.length === 0 ? (
+        <p>no posts yet :(</p>
+    ) : (
+        <ProjectList label="blog posts">
+            {}
+            <ul class="posts">
+                {posts.map((post) => (
+                    <li>
+                        <time datetime={post.data.date.toISOString()}>
+                            {formatDate(post.data.date)}
+                        </time>
+                        {}
+                        <div>
+                            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                            {post.data.draft && <span> (draft)</span>}
+                            {post.data.description && (
+                                <p>{post.data.description}</p>
+                            )}
+                        </div>
+                    </li>
+                ))}
+                {}
+            </ul>
+        </ProjectList>
+    )}
+</Frame>
+{}
+
+<style>
+    /* like ls -l: the date in its own column, the title and description beside it */
+    .posts {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 1lh;
+    }
+
+    .posts li {
+        display: grid;
+        grid-template-columns: 10ch 1fr;
+        gap: 0 2ch;
+    }
+
+    /* phones: the date goes on its own row above the title */
+    @media (max-width: 640px) {
+        .posts li {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

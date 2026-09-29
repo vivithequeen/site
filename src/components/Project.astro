@@ -18,14 +18,18 @@ const MAX_WIDTH = 1720;
 ---
 
 <article class="project">
-    <p>
-        <strong>{href ? <a href={href}>{name}</a> : name}</strong>
-        {year && <span> ({year})</span>}
-        {tech && <span> | {tech}</span>}
-    </p>
-    <div class="description">
-        <slot />
+    <div class="text">
+        {}
+        <p>
+            <strong>{href ? <a href={href}>{name}</a> : name}</strong>
+            {year && <span> ({year})</span>}
+            {tech && <span> | {tech}</span>}
+        </p>
+        <div class="description">
+            <slot />
+        </div>
     </div>
+    {}
     {image && (
         <div class="picture" data-rows>
             {typeof image === "string" ? (
@@ -37,34 +41,37 @@ const MAX_WIDTH = 1720;
                     width={Math.min(image.width, MAX_WIDTH)}
                 />
             )}{" "}
-            {/* AI CODE */}
+            {}
         </div>
     )}{" "}
-    {/* AI CODE */}
+    {}
 </article>
 
 <style>
     .project > * {
-        /* AI CODE */
-        margin: 0; /* AI CODE */
-    } /* AI CODE */
+        margin: 0;
+    }
+
+    .text > * {
+        margin: 0;
+    }
 
     .description :global(p) {
-        /* AI CODE */
-        margin: 0; /* AI CODE */
-    } /* AI CODE */
+        margin: 0;
+    }
 
     .picture :global(img) {
-        /* AI CODE */
-        display: block; /* AI CODE */
-        max-width: 100%; /* AI CODE */
-        height: auto; /* AI CODE */
-    } /* AI CODE */
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
 
     /* a row of dashes between projects, short enough to fit beside the scrollbar */
     .project + .project::before {
-        /* AI CODE */
-        content: "--------------------------------------------------------------------------------"; /* AI CODE */
-        display: block; /* AI CODE */
-    } /* AI CODE */
+        content: "--------------------------------------------------------------------------------";
+        display: block;
+        /* on narrow screens the dashes are cut off at the edge instead of spilling out */
+        overflow: hidden;
+        white-space: nowrap;
+    }
 </style>

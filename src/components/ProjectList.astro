@@ -88,27 +88,23 @@ const { rows = 16, label = "projects" } = Astro.props;
 
 <style>
     .project-list {
-        /* AI CODE */
-        overflow-y: auto; /* AI CODE */
-        padding-right: 1ch; /* AI CODE */
-    } /* AI CODE */
+        overflow-y: auto;
+        padding-right: 1ch;
+    }
 
     /* section headings inside the list get three blank rows above */
     /* to split the sections apart                                 */
     .project-list :global(h2) {
-        /* AI CODE */
-        font-size: 1em; /* AI CODE */
-        margin: 3lh 0 1lh; /* AI CODE */
-    } /* AI CODE */
+        font-size: 1em;
+        margin: 3lh 0 1lh;
+    }
 
     /* browser default margins would knock the text off the rows of #s */
     .project-list :global(:is(ul, ol, p)) {
-        /* AI CODE */
-        margin: 0; /* AI CODE */
-    } /* AI CODE */
+        margin: 0;
+    }
 
     .project-list :global(h2:first-child) {
-        /* AI CODE */
-        margin-top: 0; /* AI CODE */
-    } /* AI CODE */
+        margin-top: 0;
+    }
 </style>

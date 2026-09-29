@@ -26,6 +26,7 @@ feel free to email me for any reason!
 <a href="https://phthallo.com"><img src="/88x31/phthallo_com.png" alt="phthallo.com" width="88" height="31"></a> <!-- AI CODE -->
 <a href="https://snipchu.neocities.org"><img src="/88x31/snipchu_neocities_org.gif" alt="snipchu.neocities.org" width="88" height="31"></a> <!-- AI CODE -->
 <a href="https://pxlin.space"><img src="/88x31/pxlin_space.gif" alt="pxlin.space" width="88" height="31"></a> <!-- AI CODE -->
+<a href="https://gideon.sh"><img src="/88x31/gideon_sh.gif" alt="gideon.sh" width="88" height="31"></a> <!-- AI CODE -->
 
 </div> 
 </div>

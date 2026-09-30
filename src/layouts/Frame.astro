@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { execSync } from "node:child_process";
 
 interface Props {
     title?: string;
@@ -23,6 +24,13 @@ const pages = [
 const edge = ("#".repeat(100) + "\n").repeat(2).trimEnd();
 // taller than any page will be; the wall is clipped to the content's height
 const wall = "#####\n".repeat(500);
+
+// the commit the site was built from, shown under the frame
+const repo = "https://github.com/vivithequeen/site";
+let commit = "";
+try {
+    commit = execSync("git rev-parse HEAD").toString().trim();
+} catch {}
 ---
 
 <html lang="en">
@@ -101,6 +109,19 @@ const wall = "#####\n".repeat(500);
                 </div>
             </div>
             <div class="edge">{edge}</div>
+            <p class="commit">
+                {commit && (
+                    <>
+                        commit{" "}
+                        <a href={`${repo}/commit/${commit}`}>
+                            {commit.slice(0, 7)}
+                        </a>
+                        ,{" "}
+                    </>
+                )}
+                open source at{" "}
+                <a href={repo}>vivithequeen/site</a>
+            </p>
         </div>
 
         <script>
@@ -301,6 +322,12 @@ const wall = "#####\n".repeat(500);
         min-width: 0;
         overflow: hidden;
         padding: 1lh 0;
+    }
+
+    /* one faded row under the bottom edge */
+    .commit {
+        margin: 1lh 0 0;
+        opacity: 0.6;
     }
 
     .edge,

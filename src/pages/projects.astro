@@ -5,7 +5,10 @@ import ProjectList from "../components/ProjectList.astro";
 import horizonsBanner from "../assets/images/horizons-banner.png";
 import flagshipBanner from "../assets/images/flagship-banner.png";
 import sunbeamBanner from "../assets/images/sunbeam-banner.png";
-import infinityLostImage from "../assets/images/infinity_lost.png"; // AI CODE
+import infinityLostImage from "../assets/images/infinity_lost.png";
+import _3dRendererImage from "../assets/images/3d_renderer.png";
+import esp3dDevboard from "../assets/images/esp32-devboard.png";
+import tuiMusicPlayer from "../assets/images/tui-music-player.png";
 ---
 
 <Frame title="projects">
@@ -58,13 +61,15 @@ import infinityLostImage from "../assets/images/infinity_lost.png"; // AI CODE
                 image={infinityLostImage}
                 imageAlt="a screenshot of infinity lost"
             >
-                {} a 3D FPS made in 4 days for GMTK Game Jam 2025, and submitted
-                to Hack Club's Jumpstart program.
+                {} a 3D FPS made in 4 days for GMTKF Game Jam 2025, and
+                submitted to Hack Club's Jumpstart program.
             </Project>{" "}
             <Project
                 name="3d software renderers"
                 href="https://github.com/vivithequeen/v3DRenderer"
                 tech="C++, C, SDL3, SFML, ImGui"
+                image={_3dRendererImage}
+                imageAlt="a screenshot of a 3d renderer"
             >
                 {" "}
                 3D renderers built from scratch: an OBJ model renderer in C++, a
@@ -74,6 +79,8 @@ import infinityLostImage from "../assets/images/infinity_lost.png"; // AI CODE
                 name="rfid scanner board"
                 year="2025 – 2026"
                 tech="ESP32-C3, KiCad, SPI"
+                image={esp3dDevboard}
+                imageAlt="4 images of a esp32 devboard"
             >
                 {" "}
                 an attendance scanner system for my school, made with a class of
@@ -102,6 +109,8 @@ import infinityLostImage from "../assets/images/infinity_lost.png"; // AI CODE
                 name="tui music player"
                 href="https://github.com/vivithequeen/tui-music-player"
                 tech="Go, Bubble Tea"
+                image={tuiMusicPlayer}
+                imageAlt="picture of a tui music player"
             >
                 {" "}
                 a terminal music player for local music libraries.{" "}

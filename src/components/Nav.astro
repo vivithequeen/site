@@ -46,6 +46,13 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/"; // AI CODE
         cursor: pointer;
     }
 
+    /* the nav row is exactly full on desktop, so "[ light ]" (one wider than */ /* AI CODE */
+    /* "[ dark ]") would wrap onto its own row and push the page up a row.    */ /* AI CODE */
+    /* taking one space out of the gap before the button leaves room for it   */ /* AI CODE */
+    nav a:last-of-type {
+        margin-right: -1ch; /* AI CODE */
+    } /* AI CODE */
+
     /* phones: a blank row between wrapped nav links so they're easier to tap */
     @media (max-width: 640px) {
         nav {

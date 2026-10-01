@@ -1,13 +1,11 @@
 ---
 import Frame from "../layouts/Frame.astro";
-import ProjectList from "../components/ProjectList.astro";
+import ScrollBox from "../components/ScrollBox.astro"; // AI CODE
 ---
 
 <Frame title="about">
-    {" "}
-    <!-- the same 16-row scroll box as the projects page, so both pages are the same height -->{" "}
-    <ProjectList label="about me">
-        {" "}
+    <!-- the same 16-row scroll box as the projects page, so both pages are the same height -->
+    <ScrollBox label="about me">
         <h2>skills!!</h2>
         <ul>
             <li>
@@ -41,5 +39,5 @@ import ProjectList from "../components/ProjectList.astro";
 
             <li>AMSA Code Bash (2024)</li>
         </ul>
-    </ProjectList>{" "}
-</Frame>{" "}
+    </ScrollBox>
+</Frame>

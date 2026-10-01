@@ -1,6 +1,9 @@
 ---
 import { Font } from "astro:assets";
 import { execSync } from "node:child_process";
+import Nav from "../components/Nav.astro"; // AI CODE
+import Prompt from "../components/Prompt.astro"; // AI CODE
+import "../styles/global.css"; // AI CODE
 
 interface Props {
     title?: string;
@@ -11,15 +14,6 @@ const title = Astro.props.title ?? Astro.props.frontmatter?.title ?? "";
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const docTitle =
     path === "/" ? "violetquinn.dev" : `${title} | violetquinn.dev`;
-
-const pages = [
-    { href: "/", label: "home" },
-    { href: "/about", label: "about" },
-    { href: "/projects", label: "projects" },
-    { href: "/photos", label: "photos" },
-    { href: "/blog", label: "blog" },
-    { href: "/contact", label: "contact&friends" },
-];
 
 const edge = ("#".repeat(100) + "\n").repeat(2).trimEnd();
 // taller than any page will be; the wall is clipped to the content's height
@@ -63,46 +57,11 @@ try {
                         <div class="content">
                             <p>&gt;{title}</p>
                             <slot />
-                            <form class="prompt" autocomplete="off">
-                                {}
-                                <label>
-                                    &gt;<span class="typed"></span>
-                                    <span class="cursor"></span>
-                                    <span
-                                        class="reply"
-                                        aria-live="polite"
-                                    ></span>
-                                    <input
-                                        name="command"
-                                        maxlength="40"
-                                        aria-label="type a command, or help to list them"
-                                        spellcheck="false"
-                                        autocapitalize="off"
-                                        autocorrect="off"
-                                        enterkeyhint="go"
-                                    />
-                                </label>
-                                {}
-                            </form>
+                            <Prompt /> {/* AI CODE */}
                         </div>
                         <div class="spacer"></div>
                     </main>
-                    <nav>
-                        {pages.map((p) => (
-                            <a
-                                href={p.href}
-                                aria-current={
-                                    p.href === path ? "page" : undefined
-                                }
-                            >
-                                [ {p.label} ]
-                            </a>
-                        ))}{" "}
-                        {}
-                        <button class="theme" type="button">
-                            [ dark ]
-                        </button>
-                    </nav>
+                    <Nav /> {/* AI CODE */}
                 </div>
                 <div class="wall" aria-hidden="true">
                     <span>{wall}</span>
@@ -119,8 +78,7 @@ try {
                         ,{" "}
                     </>
                 )}
-                open source at{" "}
-                <a href={repo}>vivithequeen/site</a>
+                open source at <a href={repo}>vivithequeen/site</a>
             </p>
         </div>
 
@@ -141,127 +99,13 @@ try {
                 }
             });
             document
-                // AI CODE
                 // a markdown image (like in a blog post) sits alone in its own <p>, so pad that too // AI CODE
-                .querySelectorAll(
-                    "[data-rows] > *, .content > p > img:only-child",
-                ) // AI CODE
+                .querySelectorAll("[data-rows] > *, .content > p > img:only-child") // AI CODE
                 .forEach((el) => boxes.observe(el));
 
-            const theme = document.querySelector<HTMLButtonElement>(".theme")!;
-            const label = () => {
-                theme.textContent = document.documentElement.classList.contains(
-                    "dark",
-                )
-                    ? "[ light ]"
-                    : "[ dark ]";
-            };
-            label();
-            const setTheme = (dark: boolean) => {
-                // AI CODE
-                document.documentElement.classList.toggle("dark", dark); // AI CODE
-                try {
-                    // AI CODE
-                    localStorage.setItem("theme", dark ? "dark" : "light"); // AI CODE
-                } catch {} // AI CODE
-                label(); // AI CODE
-            }; // AI CODE
-            theme.addEventListener(
-                "click",
-                () =>
-                    // AI CODE
-                    setTheme(
-                        !document.documentElement.classList.contains("dark"),
-                    ), // AI CODE
-            ); // AI CODE
-
-            // the > line at the bottom is a real prompt. the input itself is invisible; // AI CODE
-            // what's typed is copied into a span so the block cursor can sit after it // AI CODE
-            const prompt = document.querySelector<HTMLFormElement>(".prompt")!; // AI CODE
-            const input = prompt.querySelector("input")!; // AI CODE
-            const typed = prompt.querySelector<HTMLElement>(".typed")!; // AI CODE
-            const reply = prompt.querySelector<HTMLElement>(".reply")!; // AI CODE
-
-            // each nav link is a command named after the first word of its label // AI CODE
-            const pages = new Map(
-                // AI CODE
-                [...document.querySelectorAll<HTMLAnchorElement>("nav a")].map(
-                    (a) => [
-                        // AI CODE
-                        a
-                            .textContent!.replace(/[[\]]/g, "")
-                            .trim()
-                            .split(/\s+/)[0], // AI CODE
-                        a.href, // AI CODE
-                    ],
-                ), // AI CODE
-            ); // AI CODE
-
-            // replies go on the prompt's own row instead of adding new rows, // AI CODE
-            // so typing a command never makes the page taller // AI CODE
-            const say = (text: string) => {
-                // AI CODE
-                reply.textContent = text; // AI CODE
-            }; // AI CODE
-
-            const run = (command: string) => {
-                // AI CODE
-                // "cd about" works the same as "about" // AI CODE
-                const name =
-                    command
-                        .toLowerCase()
-                        .replace(/^cd\s+/, "")
-                        .replace(/^\/+/, "") || "home"; // AI CODE
-                if (pages.has(name)) return location.assign(pages.get(name)!); // AI CODE
-                if (name === "help" || name === "ls")
-                    // AI CODE
-                    return say(
-                        `commands: ${[...pages.keys(), "dark", "light", "help"].join(", ")}`,
-                    ); // AI CODE
-                if (name === "dark" || name === "light") {
-                    // AI CODE
-                    setTheme(name === "dark"); // AI CODE
-                    return say(`switched to ${name} mode`); // AI CODE
-                } // AI CODE
-                say(`command not found: ${command}. type help for a list`); // AI CODE
-            }; // AI CODE
-
-            input.addEventListener("input", () => {
-                // AI CODE
-                typed.textContent = input.value; // AI CODE
-                reply.textContent = ""; // AI CODE
-            }); // AI CODE
-            // the cursor is always drawn at the end, so keep the real caret there too // AI CODE
-            input.addEventListener("selectionchange", () => {
-                // AI CODE
-                const end = input.value.length; // AI CODE
-                if (input.selectionStart !== end)
-                    input.setSelectionRange(end, end); // AI CODE
-            }); // AI CODE
-            prompt.addEventListener("submit", (e) => {
-                // AI CODE
-                e.preventDefault(); // AI CODE
-                const command = input.value.trim(); // AI CODE
-                input.value = typed.textContent = ""; // AI CODE
-                if (command) run(command); // AI CODE
-            }); // AI CODE
-
-            // start typing anywhere on the page and it goes into the prompt, // AI CODE
-            // unless something else (like a scroll box or link) has focus // AI CODE
-            document.addEventListener("keydown", (e) => {
-                // AI CODE
-                const idle =
-                    !document.activeElement ||
-                    document.activeElement === document.body; // AI CODE
-                if (
-                    idle &&
-                    e.key.length === 1 &&
-                    !e.ctrlKey &&
-                    !e.metaKey &&
-                    !e.altKey
-                )
-                    input.focus(); // AI CODE
-            }); // AI CODE
+            new ResizeObserver(() => {
+                spacer.style.height = `${extra(content.getBoundingClientRect().height)}px`;
+            }).observe(content);
 
             // emails are stored base64 encoded in data-email so scrapers reading the
             // html don't see an address. decode them into real links once js runs
@@ -272,46 +116,11 @@ try {
                     a.href = `mailto:${email}`;
                     a.textContent = email;
                 });
-
-            new ResizeObserver(() => {
-                spacer.style.height = `${extra(content.getBoundingClientRect().height)}px`;
-            }).observe(content);
         </script>
     </body>
 </html>
 
-<style is:global>
-    /* dark mode just inverts everything. the backgrounds are set explicitly */
-    /* so they get inverted too instead of staying the browser's white       */
-    html,
-    body {
-        background: #fff;
-    }
-
-    html.dark {
-        background: #000;
-    }
-
-    html.dark body {
-        filter: invert(1);
-    }
-
-    /* inverting twice puts images back to their real colors */
-    html.dark img {
-        filter: invert(1);
-    }
-
-    body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        /* one column exactly as wide as the screen, so the frame can shrink into it */
-        grid-template-columns: minmax(0, 1fr);
-        place-items: center;
-        font-family: var(--font-noto-sans-mono);
-        line-height: 22px;
-    }
-
+<style>
     /* the frame shrinks to fit narrow screens, but always by whole characters */
     /* so the rows of # never end on half a character                         */
     .frame {
@@ -324,10 +133,8 @@ try {
         padding: 1lh 0;
     }
 
-    /* one faded row under the bottom edge */
     .commit {
         margin: 1lh 0 0;
-        opacity: 0.6;
     }
 
     .edge,
@@ -361,138 +168,7 @@ try {
         flex: 1;
     }
 
-    /* keep everything on the text grid: one blank row between blocks, */
-    /* and headings the same size as the text so rows stay even        */
-    .content > * {
-        margin: 0 0 1lh;
-    }
-
-    .content > :last-child {
-        margin-bottom: 0;
-    }
-
-    .content :is(h1, h2, h3, h4, h5, h6) {
-        font-size: 1em;
-    }
-
-    /* underline section headings with a row of =, like a plain text file */
-    .content h2::after {
-        overflow: hidden;
-        white-space: nowrap;
-        content: "================================================================================";
-        display: block;
-        font-weight: normal;
-    }
-
-    .content :is(ul, ol) {
-        padding-left: 2ch;
-    }
-
-    .content img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* a row of 88x31 buttons. it sits in a [data-rows] box so the rows */
-    /* below it stay lined up with the #s however many lines it wraps to */
-    .content .buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 1ch;
-    }
-
-    .content .buttons img {
-        width: auto;
-        height: 31px;
-        /* keep the pixel art crisp instead of blurry */
-        image-rendering: pixelated;
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0 2ch;
-        margin-top: 1lh;
-    }
-
-    /* sits at the far right of the nav row, styled like the links' text */
-    .theme {
-        margin-left: auto;
-        padding: 0;
-        border: 0;
-        background: none;
-        color: inherit;
-        font: inherit;
-        cursor: pointer;
-    }
-
-    .prompt label {
-        position: relative;
-        display: block;
-        cursor: text;
-        /* always exactly one row, however long the text is */
-        height: 1lh;
-        overflow: hidden;
-        white-space: pre;
-        text-overflow: ellipsis;
-    }
-
-    /* the last command's answer, faded, until you start typing again */
-    .reply {
-        margin-left: 1ch;
-        opacity: 0.6;
-    }
-
-    /* the real input is invisible; .typed and .cursor draw it instead */
-    .prompt input {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        opacity: 0;
-        border: 0;
-        padding: 0;
-        font: inherit;
-        /* 16px stops phones zooming in when it's tapped */
-        font-size: 16px;
-    }
-
-    /* hollow cursor when the prompt isn't focused, like a terminal window in the background */
-    .prompt:not(:focus-within) .cursor {
-        background: none;
-        outline: 1px solid currentColor;
-        outline-offset: -1px;
-        animation: none;
-    }
-
-    .cursor {
-        display: inline-block;
-        width: 1ch;
-        height: 1.1em;
-        vertical-align: text-bottom;
-        background: currentColor;
-        animation: blink 1s steps(1) infinite;
-    }
-
-    @keyframes blink {
-        50% {
-            opacity: 0;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .cursor {
-            animation: none;
-        }
-    }
-
-    /* long links and emails wrap instead of pushing past the frame */
-    .content {
-        overflow-wrap: anywhere;
-    }
-
-    /* phones: thinner walls and padding so the text gets most of the width, */
-    /* and a blank row between wrapped nav links so they're easier to tap    */
+    /* phones: thinner walls and padding so the text gets most of the width */
     @media (max-width: 640px) {
         .middle {
             grid-template-columns: 2ch minmax(0, 1fr) 2ch;
@@ -500,10 +176,6 @@ try {
 
         .inner {
             padding: 1lh 1ch;
-        }
-
-        nav {
-            row-gap: 1lh;
         }
     }
 </style>

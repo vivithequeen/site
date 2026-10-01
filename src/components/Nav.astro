@@ -1,0 +1,55 @@
+---
+// the row of links at the bottom of the frame, plus the dark mode button // AI CODE
+const pages = [
+    { href: "/", label: "home" },
+    { href: "/about", label: "about" },
+    { href: "/projects", label: "projects" },
+    { href: "/photos", label: "photos" },
+    { href: "/blog", label: "blog" },
+    { href: "/contact", label: "contact&friends" },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/"; // AI CODE
+---
+
+<nav>
+    {pages.map((p) => (
+        <a href={p.href} aria-current={p.href === path ? "page" : undefined}>
+            [ {p.label} ]
+        </a>
+    ))}
+    <button class="theme" type="button">
+        [ dark ]
+    </button>
+</nav>
+
+<script>
+    import "../scripts/theme"; // AI CODE
+</script>
+
+<style>
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 2ch;
+        margin-top: 1lh;
+    }
+
+    /* sits at the far right of the nav row, styled like the links' text */
+    .theme {
+        margin-left: auto;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    /* phones: a blank row between wrapped nav links so they're easier to tap */
+    @media (max-width: 640px) {
+        nav {
+            row-gap: 1lh;
+        }
+    }
+</style>

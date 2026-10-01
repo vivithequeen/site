@@ -1,25 +1,22 @@
 ---
 import Frame from "../../layouts/Frame.astro"; // AI CODE
-import ProjectList from "../../components/ProjectList.astro"; // AI CODE
+import ScrollBox from "../../components/ScrollBox.astro"; // AI CODE
 import { getPosts, formatDate } from "../../lib/posts"; // AI CODE
 
 const posts = await getPosts(); // AI CODE
 ---
 
 <Frame title="blog">
-    {}
     {posts.length === 0 ? (
         <p>no posts yet :(</p>
     ) : (
-        <ProjectList label="blog posts">
-            {}
+        <ScrollBox label="blog posts">
             <ul class="posts">
                 {posts.map((post) => (
                     <li>
                         <time datetime={post.data.date.toISOString()}>
                             {formatDate(post.data.date)}
                         </time>
-                        {}
                         <div>
                             <a href={`/blog/${post.id}`}>{post.data.title}</a>
                             {post.data.draft && <span> (draft)</span>}
@@ -29,12 +26,10 @@ const posts = await getPosts(); // AI CODE
                         </div>
                     </li>
                 ))}
-                {}
             </ul>
-        </ProjectList>
+        </ScrollBox>
     )}
 </Frame>
-{}
 
 <style>
     /* like ls -l: the date in its own column, the title and description beside it */

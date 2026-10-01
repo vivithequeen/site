@@ -1,0 +1,87 @@
+/* styles for every page, and for whatever ends up in .content (markdown, */ /* AI CODE */
+/* page slots). the frame's own layout lives in src/layouts/Frame.astro   */ /* AI CODE */
+
+/* dark mode just inverts everything. the backgrounds are set explicitly */
+/* so they get inverted too instead of staying the browser's white       */
+html,
+body {
+    background: #fff;
+}
+
+html.dark {
+    background: #000;
+}
+
+html.dark body {
+    filter: invert(1);
+}
+
+/* inverting twice puts images back to their real colors */
+html.dark img {
+    filter: invert(1);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    /* one column exactly as wide as the screen, so the frame can shrink into it */
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+    font-family: var(--font-noto-sans-mono);
+    line-height: 22px;
+}
+
+/* keep everything on the text grid: one blank row between blocks, */
+/* and headings the same size as the text so rows stay even        */
+.content > * {
+    margin: 0 0 1lh;
+}
+
+/* skips <script>s, which astro puts right after the component that uses them */ /* AI CODE */
+.content > :nth-last-child(1 of :not(script)) { /* AI CODE */
+    margin-bottom: 0;
+}
+
+.content :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 1em;
+}
+
+/* underline section headings with a row of =, like a plain text file */
+.content h2::after {
+    overflow: hidden;
+    white-space: nowrap;
+    content: "================================================================================";
+    display: block;
+    font-weight: normal;
+}
+
+.content :is(ul, ol) {
+    padding-left: 2ch;
+}
+
+.content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* a row of 88x31 buttons. it sits in a [data-rows] box so the rows */
+/* below it stay lined up with the #s however many lines it wraps to */
+.content .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 1ch;
+}
+
+.content .buttons img {
+    width: auto;
+    height: 31px;
+    /* keep the pixel art crisp instead of blurry */
+    image-rendering: pixelated;
+}
+
+/* long links and emails wrap instead of pushing past the frame */
+.content {
+    overflow-wrap: anywhere;
+}

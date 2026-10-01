@@ -1,43 +1,54 @@
-# Astro Starter Kit: Minimal
+<!-- AI CODE -->
+# violetquinn.dev
 
-```sh
-npm create astro@latest -- --template minimal
-```
+my personal site! built with [Astro](https://astro.build), everything drawn as a plain text terminal.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+![the projects page on a phone](docs/screenshots/mobile-projects.png)
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## where things are
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── pages/            one file per page. the file name is the url
+│   ├── index.md          /
+│   ├── about.astro       /about
+│   ├── projects.astro    /projects (and /projects#events)
+│   ├── photos.astro      /photos
+│   ├── contact.md        /contact
+│   └── blog/             /blog and /blog/<post>
+├── layouts/
+│   └── Frame.astro   the box of #s every page sits in
+├── components/
+│   ├── Nav.astro         the [ links ] at the bottom + dark mode button
+│   ├── Prompt.astro      the > command prompt
+│   ├── ScrollBox.astro   a 16-row box that scrolls a row at a time
+│   └── Project.astro     one project/event, with its picture
+├── data/
+│   └── projects.ts   the list of projects and events
+├── content/blog/     blog posts, one .md file each
+├── scripts/          browser code shared between components
+├── styles/
+│   └── global.css    styles for every page
+└── assets/images/
+    ├── projects/     pictures for projects
+    ├── events/       banners for events
+    └── photos/       anything in here shows up on /photos
+public/
+└── 88x31/            friend buttons on /contact
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## adding stuff
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **a project or event:** put its picture in `src/assets/images/projects` (or `events`), then add an entry in `src/data/projects.ts`
+- **a blog post:** add `src/content/blog/my-post.md` with a `title` and `date` in the frontmatter. `draft: true` hides it from the real site
+- **a photo:** drop it in `src/assets/images/photos`
+- **a friend's 88x31:** put it in `public/88x31` and add a link in `src/pages/contact.md`
 
-Any static assets, like images, can be placed in the `public/` directory.
+## commands
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| command           | what it does                          |
+| :---------------- | :------------------------------------ |
+| `npm install`     | install dependencies                  |
+| `npm run dev`     | run the site at `localhost:4321`      |
+| `npm run build`   | build the real site into `./dist/`    |
+| `npm run preview` | look at the built site before deploying |

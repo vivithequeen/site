@@ -2,7 +2,7 @@
 import { Image, getImage } from "astro:assets"; // AI CODE
 import type { ImageMetadata } from "astro"; // AI CODE
 import Frame from "../layouts/Frame.astro"; // AI CODE
-import ProjectList from "../components/ProjectList.astro"; // AI CODE
+import ScrollBox from "../components/ScrollBox.astro"; // AI CODE // AI CODE
 
 // every photo dropped into src/assets/images/photos shows up here, newest name first // AI CODE
 const files = import.meta.glob<{ default: ImageMetadata }>( // AI CODE
@@ -35,12 +35,9 @@ const photos = await Promise.all(
 ---
 
 <Frame title="photos">
-    {" "}
-    {}hey! i do a lot of photography while traveling, here are a few of my
+    hey! i do a lot of photography while traveling, here are a few of my
     favorite pictures ive taken over the last year :)
-    <ProjectList label="photos">
-        {" "}
-        {}
+    <ScrollBox label="photos">
         <div class="photos">
             {photos.map(({ src, large }) => (
                 <a href={large} target="_blank">
@@ -54,13 +51,10 @@ const photos = await Promise.all(
                         decoding="async"
                     />
                 </a>
-            ))}{" "}
-            {}
+            ))}
         </div>
-    </ProjectList>{" "}
-    {}
-</Frame>{" "}
-{}
+    </ScrollBox>
+</Frame>
 <style>
     /* two photos per row. each one is cropped to a whole number of rows tall */
     /* so the grid lines up with the #s beside it                             */

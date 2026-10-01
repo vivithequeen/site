@@ -19,7 +19,6 @@ const MAX_WIDTH = 1720;
 
 <article class="project">
     <div class="text">
-        {}
         <p>
             <strong>{href ? <a href={href}>{name}</a> : name}</strong>
             {year && <span> ({year})</span>}
@@ -29,7 +28,6 @@ const MAX_WIDTH = 1720;
             <slot />
         </div>
     </div>
-    {}
     {image && (
         <div class="picture" data-rows>
             {typeof image === "string" ? (
@@ -40,11 +38,9 @@ const MAX_WIDTH = 1720;
                     alt={imageAlt}
                     width={Math.min(image.width, MAX_WIDTH)}
                 />
-            )}{" "}
-            {}
+            )}
         </div>
-    )}{" "}
-    {}
+    )}
 </article>
 
 <style>

@@ -1,14 +1,16 @@
 ---
+// a box exactly `rows` rows tall that scrolls one row at a time, like a terminal. // AI CODE
+// used for anything too long for the frame: projects, about, photos, blog // AI CODE
 interface Props {
     rows?: number;
     label?: string;
 }
 
-const { rows = 16, label = "projects" } = Astro.props;
+const { rows = 16, label = "scrollable list" } = Astro.props; // AI CODE
 ---
 
 <section
-    class="project-list"
+    class="scroll-box"
     style={`height: ${rows}lh`}
     tabindex="0"
     aria-label={label}
@@ -19,7 +21,7 @@ const { rows = 16, label = "projects" } = Astro.props;
 <script>
     // jump a whole row at a time with no smooth gliding, like a terminal
     for (const list of document.querySelectorAll<HTMLElement>(
-        ".project-list",
+        ".scroll-box", // AI CODE
     )) {
         const row = () => parseFloat(getComputedStyle(list).lineHeight);
         let leftover = 0;
@@ -87,24 +89,24 @@ const { rows = 16, label = "projects" } = Astro.props;
 </script>
 
 <style>
-    .project-list {
+    .scroll-box {
         overflow-y: auto;
         padding-right: 1ch;
     }
 
     /* section headings inside the list get three blank rows above */
     /* to split the sections apart                                 */
-    .project-list :global(h2) {
+    .scroll-box :global(h2) {
         font-size: 1em;
         margin: 3lh 0 1lh;
     }
 
     /* browser default margins would knock the text off the rows of #s */
-    .project-list :global(:is(ul, ol, p)) {
+    .scroll-box :global(:is(ul, ol, p)) {
         margin: 0;
     }
 
-    .project-list :global(h2:first-child) {
+    .scroll-box :global(h2:first-child) {
         margin-top: 0;
     }
 </style>

@@ -2,7 +2,16 @@
 import Frame from "../layouts/Frame.astro";
 import Project from "../components/Project.astro";
 import ScrollBox from "../components/ScrollBox.astro"; // AI CODE
-import { projects, events } from "../data/projects"; // AI CODE
+import { getCollection, render } from "astro:content"; // AI CODE
+
+// load a tab in the order it is written, with each description rendered from markdown // AI CODE
+const load = async (name: "projects" | "events") => { // AI CODE
+    const entries = await getCollection(name); // AI CODE
+    entries.sort((a, b) => a.data.order - b.data.order); // AI CODE
+    return Promise.all(entries.map(async (e) => ({ ...e.data, Content: (await render(e)).Content }))); // AI CODE
+}; // AI CODE
+const projects = await load("projects"); // AI CODE
+const events = await load("events"); // AI CODE
 ---
 
 <Frame title="projects">
@@ -33,12 +42,12 @@ import { projects, events } from "../data/projects"; // AI CODE
         aria-labelledby="tab-projects"
     >
         <ScrollBox label="projects"> {/* AI CODE */}
-            {projects.map(({ description, ...p }) => <Project {...p}>{description}</Project>)} {/* AI CODE */}
+            {projects.map(({ Content, order, ...p }) => <Project {...p}><Content /></Project>)} {/* AI CODE */}
         </ScrollBox> {/* AI CODE */}
     </div>
     <div role="tabpanel" id="panel-events" aria-labelledby="tab-events" hidden>
         <ScrollBox label="events"> {/* AI CODE */}
-            {events.map(({ description, ...e }) => <Project {...e}>{description}</Project>)} {/* AI CODE */}
+            {events.map(({ Content, order, ...e }) => <Project {...e}><Content /></Project>)} {/* AI CODE */}
         </ScrollBox> {/* AI CODE */}
     </div>
 </Frame>
